@@ -1,103 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Clickr Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            margin: 0;
-        }
-        #content {
-            padding: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-
-        /* Additional CSS styles for demonstration */
-        p.additional-content {
-            color: blue;
-            font-style: italic;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Creator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .team {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 4px;
+    }
+</style>
 </head>
 <body>
-
-<header>
-    <h1>Welcome to the Clickr Page!</h1>
-</header>
-
-<div id="content">
-    <h2>CLICKER ME!</h2>
-    <button id="clickMeBtn">Click Me!</button>
-    <p id="clickCount">You've clicked the button 0 times.</p>
+<div class="container">
+    <h1>Team Creator</h1>
+    <input type="text" id="teamName" placeholder="Enter team name">
+    <button onclick="addTeam()">Add Team</button>
+    <div id="teamContainer"></div>
 </div>
-
 <script>
-    let clickCount = 0;
-    const clickMeBtn = document.getElementById('clickMeBtn');
-    const clickCountDisplay = document.getElementById('clickCount');
+    let teamCount = 0;
 
-    clickMeBtn.addEventListener('click', () => {
-        clickCount++;
-        clickCountDisplay.textContent = `You've clicked the button ${clickCount} times.`;
-    });
-
-    // JavaScript for generating more content
-    const additionalContent = document.createElement('p');
-    additionalContent.textContent = "This is some additional content added dynamically!";
-    document.getElementById('content').appendChild(additionalContent);
-
-    // JavaScript for adding more CSS styles dynamically
-    const dynamicStyle = document.createElement('style');
-    dynamicStyle.textContent = `
-        p.additional-content {
-            color: blue;
-            font-style: italic;
+    function addTeam() {
+        const teamNameInput = document.getElementById('teamName');
+        const teamName = teamNameInput.value.trim();
+        if (teamName !== '') {
+            teamCount++;
+            const teamColor = getRandomColor();
+            const teamContainer = document.getElementById('teamContainer');
+            const teamDiv = document.createElement('div');
+            teamDiv.classList.add('team');
+            teamDiv.style.backgroundColor = teamColor;
+            teamDiv.textContent = `${teamName} (Team ${teamCount})`;
+            teamContainer.appendChild(teamDiv);
+            teamNameInput.value = '';
+        } else {
+            alert('Please enter a team name.');
         }
-        /* Additional dynamic CSS styles */
-        .dynamic-style {
-            font-weight: bold;
-            text-decoration: underline;
+    }
+
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
         }
-    `;
-    document.head.appendChild(dynamicStyle);
-
-    // JavaScript to manipulate CSS classes
-    const addDynamicStyleClass = () => {
-        additionalContent.classList.add('dynamic-style');
-    };
-</script>
-
-<!-- Additional JavaScript code to meet the requirement of at least 200 lines -->
-<script>
-    // Additional JavaScript code here...
-    // For example:
-    for (let i = 0; i < 100; i++) {
-        console.log("This is an additional line of JavaScript code.");
+        return color;
     }
 </script>
-
 </body>
 </html>
